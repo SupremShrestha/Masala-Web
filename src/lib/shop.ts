@@ -1,7 +1,7 @@
 // Change this name to update the storefront, packaging, and page metadata.
 export const brand = {
-  name: 'Masala',
-  nepaliName: 'मसला',
+  name: 'Rasa',
+  nepaliName: 'रासा',
   tagline: 'The taste of home.',
 };
 
