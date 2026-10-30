@@ -1,0 +1,973 @@
+/* Storefront dialogs share the same parchment, chilli, and brass palette. */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgb(39 25 21 / 64%);
+  backdrop-filter: blur(7px);
+  animation: overlay-fade-in 180ms ease-out;
+}
+
+.modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 740px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--brass);
+  border-radius: 10px;
+  background: var(--cream);
+  box-shadow: 0 28px 100px rgb(26 15 12 / 28%);
+  outline: none;
+  scrollbar-color: #bba68c transparent;
+  scrollbar-width: thin;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.modal-close:hover {
+  background: var(--paper);
+}
+
+.modal-panel .icon-button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.modal-panel > .eyebrow {
+  color: var(--red);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.modal-panel .button {
+  min-height: 50px;
+  font-size: 13px;
+}
+
+.full-width {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.sample-note {
+  display: block;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 52px 16px;
+  text-align: center;
+}
+
+.empty-state > svg {
+  color: var(--brass);
+}
+
+.empty-state h3 {
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.empty-state p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.empty-state .text-link {
+  min-height: 44px;
+  font-size: 13px;
+}
+
+.search-modal .modal-panel {
+  padding: 48px;
+}
+
+.search-modal h2 {
+  margin-top: 12px;
+  padding-right: 25px;
+  font-size: 42px;
+  letter-spacing: -1px;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--brass);
+  color: var(--red);
+}
+
+.search-input input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 16px;
+  outline-offset: 2px;
+}
+
+.search-input input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.search-count {
+  margin: 20px 0 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.search-results > button {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.search-results > button:hover strong {
+  color: var(--red);
+}
+
+.search-swatch {
+  display: grid;
+  flex-shrink: 0;
+  width: 60px;
+  height: 70px;
+  place-items: center;
+  border: 1px solid rgb(101 43 35 / 8%);
+  border-radius: 4px;
+  color: var(--red);
+}
+
+.search-swatch > svg {
+  width: 46px;
+}
+
+.search-results > button > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-results strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.search-results small {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.search-results > button > span:nth-child(3) {
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.product-modal .modal-panel {
+  display: grid;
+  grid-template-columns: 0.95fr 1fr;
+  max-width: 960px;
+}
+
+.product-modal-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 580px;
+  overflow: hidden;
+}
+
+.product-modal-art .pouch {
+  width: 60%;
+  max-width: 245px;
+  margin: 0;
+}
+
+.product-modal-art .pouch-brand {
+  font-size: 38px;
+}
+
+.product-modal-art .pouch-product {
+  font-size: 22px;
+}
+
+.product-modal-art .pouch-nepali {
+  font-size: 11px;
+}
+
+.product-modal-art .pouch-tagline,
+.product-modal-art .pouch-weight {
+  font-size: 6px;
+}
+
+.product-modal-copy {
+  min-width: 0;
+  padding: 54px 36px 34px;
+}
+
+.product-modal-copy > .eyebrow {
+  color: var(--red);
+  font-size: 10px;
+  letter-spacing: 1.8px;
+}
+
+.product-modal-copy h2 {
+  margin-top: 14px;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.detail-nepali {
+  display: block;
+  margin-top: 14px;
+  color: #8b653d;
+  font-size: 17px;
+}
+
+.product-modal-copy > p {
+  margin-top: 23px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.detail-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 25px 0 20px;
+  font-size: 20px;
+}
+
+.detail-price > strong {
+  font-weight: 500;
+}
+
+.detail-price > span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.product-modal-copy details {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.product-modal-copy details:first-of-type {
+  margin-top: 20px;
+}
+
+.product-modal-copy summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.product-modal-copy summary::-webkit-details-marker {
+  display: none;
+}
+
+.product-modal-copy details p {
+  padding: 3px 0 13px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.product-modal-copy details[open] summary > svg {
+  transform: rotate(45deg);
+}
+
+.cart-modal {
+  align-items: stretch;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.cart-modal .modal-panel {
+  display: flex;
+  flex-direction: column;
+  width: 560px;
+  max-width: 100%;
+  max-height: 100dvh;
+  padding: 46px 34px 24px;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 3px solid var(--brass);
+  border-radius: 0;
+  animation: overlay-drawer-in 240ms ease-out;
+}
+
+.cart-header {
+  flex-shrink: 0;
+  padding-right: 16px;
+}
+
+.cart-header .eyebrow {
+  color: var(--red);
+  font-size: 10px;
+}
+
+.cart-header h2 {
+  margin-top: 15px;
+  font-size: 40px;
+  letter-spacing: -1px;
+}
+
+.cart-header h2 > span {
+  margin-left: 5px;
+  color: #9b7350;
+  font-family: var(--sans);
+  font-size: 23px;
+}
+
+.cart-header > p {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.cart-items {
+  flex: 1;
+  min-height: 110px;
+  margin-top: 26px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 17px;
+  padding: 23px 0;
+  border-top: 1px solid var(--line);
+}
+
+.cart-item-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.cart-item-art .pouch {
+  width: 62%;
+  margin: 0;
+}
+
+/* Pack lettering is decorative artwork; product names remain full size beside it. */
+.pouch-small .pouch-brand {
+  font-size: 12px;
+  letter-spacing: -0.4px;
+}
+
+.pouch-small .pouch-brand > span {
+  top: -4px;
+  font-size: 3px;
+}
+
+.pouch-small .pouch-tagline {
+  margin-top: 2px;
+  font-size: 2px;
+  letter-spacing: 0.3px;
+}
+
+.pouch-small .pouch-product {
+  font-size: 6px;
+}
+
+.pouch-small .pouch-nepali {
+  margin-top: 2px;
+  font-size: 3px;
+}
+
+.pouch-small .pouch-weight {
+  padding-top: 1px;
+  font-size: 2px;
+  letter-spacing: 0;
+}
+
+.cart-item-copy {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.cart-item-copy h3 {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.cart-item-copy > span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.quantity-control button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+}
+
+.quantity-control button:hover:not(:disabled) {
+  background: var(--paper);
+}
+
+.quantity-control > span {
+  width: 27px;
+  text-align: center;
+}
+
+.cart-item > strong {
+  padding-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.cart-summary {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.cart-summary > div:first-child:not(.order-notice) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 20px;
+}
+
+.cart-summary > p {
+  margin: 10px 0 22px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.continue-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 44px;
+  margin: 12px auto 0;
+  font-size: 13px;
+}
+
+.continue-button:hover {
+  color: var(--red);
+}
+
+.cart-summary > .sample-note {
+  margin-top: 9px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.cart-empty {
+  margin: auto 0;
+}
+
+.order-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--paper);
+}
+
+.order-notice > svg {
+  color: var(--red);
+}
+
+.order-notice strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.order-notice p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.recipe-modal .modal-panel {
+  max-width: 900px;
+  padding: 50px;
+}
+
+.recipe-nepali {
+  display: block;
+  margin-top: 22px;
+  color: #956e3e;
+  font-size: 18px;
+}
+
+.recipe-modal h2 {
+  max-width: 660px;
+  margin-top: 14px;
+  font-size: 48px;
+  line-height: 1.08;
+  letter-spacing: -1px;
+}
+
+.recipe-intro {
+  max-width: 680px;
+  margin-top: 23px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.recipe-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  margin: 28px 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.recipe-facts > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.recipe-facts svg {
+  color: var(--red);
+}
+
+.recipe-instructions {
+  display: grid;
+  grid-template-columns: 0.8fr 1.3fr;
+  gap: 44px;
+}
+
+.recipe-instructions h3 {
+  margin-bottom: 19px;
+  font-size: 28px;
+}
+
+.recipe-instructions ul,
+.recipe-instructions ol {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.recipe-instructions li {
+  margin-bottom: 14px;
+  padding-left: 6px;
+}
+
+.recipe-instructions li::marker {
+  color: var(--red);
+}
+
+.recipe-instructions ol li::marker {
+  font-weight: 600;
+}
+
+.recipe-end {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 28px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+  color: var(--red);
+  font-size: 20px;
+}
+
+.mobile-navigation .modal-panel {
+  max-width: 500px;
+  padding: 44px 30px 32px;
+}
+
+.mobile-navigation .modal-panel > svg {
+  width: 54px;
+  color: var(--red);
+}
+
+.mobile-navigation nav {
+  display: flex;
+  flex-direction: column;
+  margin: 22px 0 30px;
+}
+
+.mobile-navigation nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.mobile-navigation nav a:hover {
+  color: var(--red);
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: min(620px, calc(100vw - 32px));
+  min-height: 64px;
+  padding: 9px 15px 9px 20px;
+  border: 1px solid #a96d4b;
+  border-radius: 6px;
+  background: var(--green);
+  color: var(--cream);
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 16px);
+  transition: opacity 180ms ease, transform 180ms ease;
+  box-shadow: 0 10px 35px rgb(46 24 16 / 20%);
+}
+
+.toast-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.toast > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.toast > button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  margin-left: 3px;
+  padding: 0 4px 0 14px;
+  border-left: 1px solid rgb(248 241 228 / 24%);
+  color: #f1d09b;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@keyframes overlay-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlay-drawer-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@media (max-width: 800px) {
+  .product-modal .modal-panel {
+    max-width: 600px;
+    grid-template-columns: 1fr;
+  }
+
+  .product-modal-art {
+    height: 320px;
+    min-height: 320px;
+  }
+
+  .product-modal-art .pouch {
+    width: 170px;
+    max-width: 170px;
+  }
+
+  .product-modal-art .pouch-brand { font-size: 30px; }
+  .product-modal-art .pouch-product { font-size: 18px; }
+  .product-modal-art .pouch-nepali { font-size: 9px; }
+  .product-modal-art .pouch-tagline,
+  .product-modal-art .pouch-weight { font-size: 4px; }
+
+  .product-modal-copy {
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .modal-backdrop {
+    padding: 12px;
+  }
+
+  .modal-panel {
+    max-height: 94dvh;
+    border-radius: 7px;
+  }
+
+  .modal-close {
+    top: 10px;
+    right: 10px;
+  }
+
+  .search-modal .modal-panel {
+    padding: 54px 23px 26px;
+  }
+
+  .search-modal h2 {
+    padding: 0;
+    font-size: 34px;
+  }
+
+  .search-input {
+    gap: 9px;
+    margin-top: 22px;
+  }
+
+  .search-results > button {
+    gap: 11px;
+    padding: 17px 0;
+  }
+
+  .search-swatch {
+    width: 44px;
+    height: 60px;
+  }
+
+  .search-swatch > svg { width: 36px; }
+  .search-results strong { font-size: 19px; }
+  .search-results small { font-size: 11px; }
+  .search-results > button > span:nth-child(3) { font-size: 12px; }
+  .search-results > button > svg { display: none; }
+
+  .product-modal-art {
+    min-height: 285px;
+    height: 285px;
+  }
+
+  .product-modal-art .pouch {
+    width: 150px;
+    max-width: 150px;
+  }
+
+  .product-modal-art .pouch-brand { font-size: 27px; }
+  .product-modal-art .pouch-product { font-size: 16px; }
+  .product-modal-art .pouch-nepali { font-size: 8px; }
+  .product-modal-art .pouch-tagline,
+  .product-modal-art .pouch-weight { font-size: 4px; }
+
+  .product-modal-copy {
+    padding: 28px 24px;
+  }
+
+  .product-modal-copy h2 { font-size: 36px; }
+  .product-modal-copy > p { font-size: 14px; }
+
+  .cart-modal {
+    padding: 0;
+  }
+
+  .cart-modal .modal-panel {
+    width: 100%;
+    max-height: 100dvh;
+    padding: 55px 22px 20px;
+    border-left: 0;
+    border-radius: 0;
+  }
+
+  .cart-header h2 { font-size: 34px; }
+  .cart-header h2 > span { font-size: 20px; }
+
+  .cart-items {
+    margin-top: 22px;
+  }
+
+  .cart-item {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px;
+    position: relative;
+  }
+
+  .cart-item-art {
+    width: 72px;
+    height: 108px;
+    grid-row: span 2;
+  }
+
+  .cart-item-copy h3 { font-size: 23px; }
+
+  .cart-item-controls {
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .cart-item > strong {
+    grid-column: 2;
+    padding-top: 0;
+    margin-top: -4px;
+    color: var(--red);
+    font-size: 13px;
+  }
+
+  .cart-summary { padding-top: 22px; }
+  .cart-summary > p { margin-bottom: 18px; }
+  .empty-state h3 { font-size: 28px; }
+  .order-notice { padding: 16px; }
+
+  .recipe-modal .modal-panel {
+    padding: 54px 24px 30px;
+  }
+
+  .recipe-modal h2 {
+    font-size: 36px;
+  }
+
+  .recipe-nepali {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .recipe-intro { font-size: 14px; }
+
+  .recipe-facts {
+    gap: 14px 20px;
+    margin: 24px 0;
+  }
+
+  .recipe-facts > span {
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  .recipe-instructions {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .recipe-instructions h3 {
+    margin-bottom: 15px;
+    font-size: 27px;
+  }
+
+  .recipe-instructions li { font-size: 14px; }
+  .recipe-end { font-size: 18px; }
+
+  .mobile-navigation .modal-panel { padding: 43px 25px 30px; }
+  .mobile-navigation nav a { font-size: 29px; }
+
+  .toast {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: calc(100vw - 24px);
+    max-width: 520px;
+    gap: 9px;
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .toast > button {
+    gap: 5px;
+    margin: 0;
+    padding-left: 10px;
+    font-size: 12px;
+  }
+
+  .toast > svg { width: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop,
+  .cart-modal .modal-panel {
+    animation: none;
+  }
+
+  .toast {
+    transition: none;
+  }
+}
