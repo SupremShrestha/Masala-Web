@@ -3,6 +3,9 @@ export const brand = {
   name: 'Rasa',
   nepaliName: 'रासा',
   tagline: 'The taste of home.',
+  // Replace these placeholders with the contact details to show on the site.
+  contactName: 'Bhumi',
+  contactNumber: '+977 986-8592109',
 };
 
 export type Category = 'All spices' | 'Signature blends' | 'Ground spices' | 'Whole spices';

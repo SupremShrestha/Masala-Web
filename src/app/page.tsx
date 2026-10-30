@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Clock3, CookingPot, Flower2, Heart, Leaf, Menu, Minus, Mountain, Plus, Search, ShoppingBag, SlidersHorizontal, Sparkles, Trash2, Users, X } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Clock3, CookingPot, Flower2, Heart, Leaf, Menu, Minus, Mountain, Phone, Plus, Search, ShoppingBag, SlidersHorizontal, Sparkles, Trash2, UserRound, Users, X } from 'lucide-react';
 import { brand, formatPrice, products, recipes, type Category, type Product, type Recipe } from '@/lib/shop';
 
 type Basket = Record<string, number>;
@@ -90,13 +90,16 @@ export default function Home() {
   });
   const visibleProducts = products.filter(item => category === 'All spices' || item.category === category);
   const matches = products.filter(item => `${item.name} ${item.nepali} ${item.description} ${item.ingredients}`.toLowerCase().includes(query.toLowerCase().trim()));
+  const contactNumberHref = brand.contactNumber.replace(/[^\d+]/g, '');
+  const hasContactNumber = /\d{5,}/.test(contactNumberHref);
+  const whatsappHref = contactNumberHref.startsWith('+') ? `https://wa.me/${contactNumberHref.slice(1)}` : '';
 
   return <>
     <a href="#main" className="skip-link">Skip to content</a>
     <div className="announcement"><span>Rooted in Nepal. Made for your kitchen.</span><span lang="ne">हाम्रो स्वाद, हाम्रो पहिचान <span aria-hidden="true">✦</span></span></div>
     <header className="site-header">
       <a href="#" className="wordmark" aria-label={`${brand.name} home`}><SpiceMark/><span>{brand.name.toUpperCase()}<small>THE TASTE OF HOME</small></span></a>
-      <nav className="desktop-nav" aria-label="Main navigation"><a href="#spices">Our spices <ChevronDown size={13}/></a><a href="#story">Our roots</a><a href="#recipes">From the kitchen</a></nav>
+      <nav className="desktop-nav" aria-label="Main navigation"><a href="#spices">Our spices <ChevronDown size={13}/></a><a href="#story">Our roots</a><a href="#recipes">From the kitchen</a><a href="#contact">Contact</a></nav>
       <div className="header-actions"><span className="country-label"><Mountain size={15}/> NEPAL</span><button className="icon-button" onClick={() => setSearch(true)} aria-label="Search spices"><Search size={21}/></button><button className="bag-button" onClick={() => setDrawer(true)} aria-label={`Open shopping bag, ${count} items`}><ShoppingBag size={20}/><span className="bag-label">Bag</span><span className="bag-count">{count}</span></button><button className="icon-button mobile-menu-button" onClick={() => setMobileMenu(true)} aria-label="Open navigation menu"><Menu size={23}/></button></div>
     </header>
 
@@ -134,20 +137,72 @@ export default function Home() {
 
       <section id="recipes" className="recipes-section section-pad" aria-labelledby="recipe-title"><div className="section-heading"><div><div className="eyebrow">FROM OUR KITCHEN TO YOURS</div><h2 id="recipe-title">A pinch of <em>inspiration.</em></h2></div><p>Simple recipes. Familiar flavours.<br/>Something lovely to gather around.</p></div><div className="recipe-layout"><button className="featured-recipe" onClick={() => setRecipe(recipes[0])}><div className="recipe-photo"><img src="/images/momo-table.png" alt="Freshly steamed vegetable momo with a bowl of tomato achaar" loading="lazy"/><span className="recipe-photo-label">LET’S MAKE MOMO</span><span className="round-arrow"><ArrowUpRight size={24}/></span></div><div className="featured-recipe-info"><span className="eyebrow">THE WEEKEND FAVOURITE</span><h3>Good things come<br/>in little <em>dumplings.</em></h3><span className="recipe-time"><Clock3 size={14}/> 50 minutes <span>·</span> A recipe worth sharing</span></div></button><div className="recipe-list">{recipes.slice(1).map((item, index) => <button className="recipe-row" key={item.id} onClick={() => setRecipe(item)}><span className="recipe-number">0{index + 2}</span><span className="recipe-row-body"><span className="eyebrow">{item.category}</span><h3>{item.title}</h3><span className="recipe-time"><Clock3 size={14}/>{item.time}<span>·</span>{item.serves}</span></span><ArrowUpRight size={23}/></button>)}<div className="kitchen-note"><Sparkles size={23} strokeWidth={1.3}/><div><h4>A little kitchen wisdom</h4><p>Toast whole spices gently, grind what you need, and let your nose tell you when they’re ready.</p></div></div></div></div></section>
 
+      <section id="contact" className="contact-section" aria-labelledby="contact-title">
+        <div className="contact-inner section-pad">
+          <div className="contact-copy">
+            <div className="eyebrow">WE’D LOVE TO HEAR FROM YOU</div>
+            <h2 id="contact-title">Say <em>hello.</em></h2>
+            <p className="contact-nepali" lang="ne">नमस्ते! केही सोध्नु छ भने हामी यहीँ छौं।</p>
+            <p>Wondering which blend suits your momo, or how much timur is too much? Ask away. A real person will answer, usually with a cooking tip attached.</p>
+            <ul className="contact-topics" aria-label="Things you can ask us">
+              <li><Leaf size={17}/> Which spice for which dish</li>
+              <li><ShoppingBag size={17}/> Placing an order</li>
+              <li><Heart size={17}/> Gifts and bigger kitchens</li>
+            </ul>
+          </div>
+          <aside className="contact-card" aria-label="Contact details">
+            <div className="contact-card-top"><SpiceMark/><span>{brand.name.toUpperCase()}<small>A TASTE OF NEPAL</small></span><span className="contact-card-nepali" lang="ne">{brand.nepaliName}</span></div>
+            <div className="contact-card-body">
+              <div className="contact-row"><span className="contact-detail-icon"><UserRound size={20}/></span><div><span className="eyebrow">SPEAK TO</span><strong>{brand.contactName}</strong></div></div>
+              <div className="contact-row"><span className="contact-detail-icon"><Phone size={19}/></span><div><span className="eyebrow">CALL OR MESSAGE</span>{hasContactNumber ? <a className="contact-phone" href={`tel:${contactNumberHref}`}>{brand.contactNumber}</a> : <strong className="contact-phone">{brand.contactNumber}</strong>}</div></div>
+            </div>
+            {hasContactNumber && <div className="contact-actions"><a href={`tel:${contactNumberHref}`} className="button button-gold">Call now <Phone size={17}/></a>{whatsappHref && <a href={whatsappHref} className="button button-outline" target="_blank" rel="noopener noreferrer">WhatsApp <ArrowUpRight size={17}/></a>}</div>}
+            <p className="contact-card-note"><Clock3 size={15}/> Online ordering is on its way. For now, we take orders by phone.</p>
+          </aside>
+        </div>
+      </section>
+
       <section className="closing-note"><span className="closing-flower" aria-hidden="true">✳</span><div><span className="eyebrow" lang="ne">मिठो खानुहोस्, खुसी रहनुहोस्।</span><h2>Make room for <em>a little flavour.</em></h2></div><a href="#spices" className="button button-green">Find your spice <ArrowUpRight size={18}/></a></section>
     </main>
 
-    <footer className="site-footer"><div className="footer-topline"><span className="eyebrow">A LITTLE PIECE OF NEPAL, IN EVERY KITCHEN.</span><Flower2 size={26} strokeWidth={1}/></div><div className="footer-main"><a href="#" className="wordmark footer-wordmark"><SpiceMark/><span>{brand.name.toUpperCase()}<small>THE TASTE OF HOME</small></span></a><p>Spices. Stories. A little piece of Nepal.<br/>Made for the meals that bring us together.</p><nav aria-label="Footer navigation"><a href="#spices">Our spices</a><a href="#story">Our roots</a><a href="#recipes">Recipes</a><button onClick={() => setDrawer(true)}>Your bag <ArrowUpRight size={16}/></button></nav></div><div className="footer-bottom"><span>© {new Date().getFullYear()} {brand.name}. With love, from Nepal.</span><span className="demo-label">A concept storefront · Sample products & prices</span><span lang="ne">स्वादले जोडिएका। <Heart size={14}/></span></div></footer>
+    <footer className="site-footer"><div className="footer-topline"><span className="eyebrow">A LITTLE PIECE OF NEPAL, IN EVERY KITCHEN.</span><Flower2 size={26} strokeWidth={1}/></div><div className="footer-main"><a href="#" className="wordmark footer-wordmark"><SpiceMark/><span>{brand.name.toUpperCase()}<small>THE TASTE OF HOME</small></span></a><p>Spices. Stories. A little piece of Nepal.<br/>Made for the meals that bring us together.</p><nav aria-label="Footer navigation"><a href="#spices">Our spices</a><a href="#story">Our roots</a><a href="#recipes">Recipes</a><a href="#contact">Contact</a><button onClick={() => setDrawer(true)}>Your bag <ArrowUpRight size={16}/></button></nav></div><div className="footer-bottom"><span>© {new Date().getFullYear()} {brand.name}. With love, from Nepal.</span><span className="demo-label">A concept storefront · Sample products & prices</span><span lang="ne">स्वादले जोडिएका। <Heart size={14}/></span></div></footer>
 
     <div className={`toast ${toast ? 'toast-visible' : ''}`} role="status" aria-live="polite">{toast && <><Check size={18}/><span>{toast}</span><button onClick={() => { setProduct(null); setRecipe(null); setSearch(false); setMobileMenu(false); setDrawer(true); setToast(''); }}>View bag <ArrowRight size={14}/></button></>}</div>
 
-    {mobileMenu && <Modal title="Navigation" onClose={closeMenu} className="mobile-navigation"><SpiceMark/><nav>{[['Our spices','#spices'],['Our roots','#story'],['From the kitchen','#recipes']].map(([label,href])=><a key={href} href={href} onClick={closeMenu}>{label}<ArrowUpRight/></a>)}</nav><span className="eyebrow">THE TASTE OF HOME</span></Modal>}
+    {mobileMenu && <Modal title="Navigation" onClose={closeMenu} className="mobile-navigation"><SpiceMark/><nav>{[['Our spices','#spices'],['Our roots','#story'],['From the kitchen','#recipes'],['Contact','#contact']].map(([label,href])=><a key={href} href={href} onClick={closeMenu}>{label}<ArrowUpRight/></a>)}</nav><span className="eyebrow">THE TASTE OF HOME</span></Modal>}
 
     {search && <Modal title="Search the spice cupboard" onClose={closeSearch} className="search-modal"><span className="eyebrow">FIND YOUR FLAVOUR</span><h2>The spice cupboard.</h2><label className="search-input"><Search size={21}/><input aria-label="Search products" value={query} onChange={event => setQuery(event.target.value)} placeholder="Try momo, turmeric, or timur…" autoFocus/>{query && <button className="icon-button" onClick={() => setQuery('')} aria-label="Clear search"><X size={18}/></button>}</label><p className="search-count">{matches.length} {matches.length === 1 ? 'spice' : 'spices'} to explore</p><div className="search-results">{matches.length ? matches.map(item => <button key={item.id} onClick={() => { setSearch(false); setProduct(item); }}><span className="search-swatch" style={{ background: item.background }}><SpiceDrawing kind={item.symbol}/></span><span><strong>{item.name}</strong><small>{item.note}</small></span><span>{formatPrice(item.price)}</span><ArrowUpRight size={20}/></button>) : <div className="empty-state"><Search size={32}/><h3>No spices found just yet.</h3><p>Try “momo”, “cumin”, or “turmeric”.</p><button className="text-link" onClick={() => setQuery('')}>See all spices <ArrowRight size={16}/></button></div>}</div></Modal>}
 
     {product && <Modal title={product.name} onClose={closeProduct} className="product-modal"><div className="product-modal-art" style={{ background: product.background }}><Pouch product={product}/></div><div className="product-modal-copy"><span className="eyebrow">{product.category}</span><h2>{product.name}</h2><span className="detail-nepali" lang="ne">{product.nepali}</span><p>{product.description}</p><div className="detail-price"><strong>{formatPrice(product.price)}</strong><span>{product.weight}</span></div><button className="button button-green full-width" onClick={() => add(product)}>Add to your bag <Plus size={19}/></button><details open><summary>What’s inside <Plus size={15}/></summary><p>{product.ingredients}</p></details><details><summary>A little kitchen inspiration <Plus size={15}/></summary><p>{product.use}</p></details><small className="sample-note">Sample product. Ingredients, pack sizes, and prices are illustrative and must be confirmed before ordering.</small></div></Modal>}
 
-    {drawer && <Modal title={review ? 'Review your sample order' : 'Your spice bag'} onClose={closeDrawer} className="cart-modal"><div className="cart-header"><span className="eyebrow">A LITTLE SOMETHING GOOD</span><h2>{review ? 'One lovely little order.' : 'Your spice bag.'} {!review && <span>({count})</span>}</h2><p>{review ? 'Your sample order summary is ready.' : 'Good things are cooking.'}</p></div>{count > 0 ? <><div className="cart-items">{products.filter(item => basket[item.id]).map(item => <div className="cart-item" key={item.id}><div className="cart-item-art" style={{ background: item.background }}><Pouch product={item} small/></div><div className="cart-item-copy"><h3>{item.name}</h3><span>{item.weight} · {formatPrice(item.price)}</span><div className="cart-item-controls"><div className="quantity-control"><button aria-label={`Decrease ${item.name} quantity`} onClick={() => quantity(item.id, -1)}><Minus size={14}/></button><span aria-label={`${item.name} quantity`}>{basket[item.id]}</span><button aria-label={`Increase ${item.name} quantity`} disabled={basket[item.id] >= 20} onClick={() => quantity(item.id, 1)}><Plus size={14}/></button></div><button className="icon-button" aria-label={`Remove ${item.name} from bag`} onClick={() => setBasket(current => { const next = { ...current }; delete next[item.id]; return next; })}><Trash2 size={15}/></button></div></div><strong>{formatPrice(item.price * basket[item.id])}</strong></div>)}</div><div className="cart-summary"><div><span>Subtotal</span><strong>{formatPrice(total)}</strong></div><p>Prices shown in Nepalese rupees (NPR).</p>{review ? <div className="order-notice"><Check size={22}/><div><strong>You’re all set to explore.</strong><p>This is a demo shop. Checkout, delivery, and payments will be available when the store launches. No order has been placed.</p></div></div> : <button className="button button-green full-width" onClick={() => setReview(true)}>Review sample order <ArrowRight size={18}/></button>}<button className="continue-button" onClick={closeDrawer}>Continue exploring <ArrowRight size={15}/></button><small className="sample-note">Demo storefront · No payments are collected</small></div></> : <div className="empty-state cart-empty"><ShoppingBag size={45} strokeWidth={1}/><h3>A little room for flavour.</h3><p>Your bag is empty. Let’s find something<br/>lovely for your kitchen.</p><a href="#spices" className="button button-green" onClick={closeDrawer}>Explore the spices <ArrowRight size={17}/></a></div>}</Modal>}
+    {drawer && <Modal title={review ? 'Review your sample order' : 'Your spice bag'} onClose={closeDrawer} className="cart-modal">
+      <div className="cart-header">
+        <span className="eyebrow">A LITTLE SOMETHING GOOD</span>
+        <h2>{review ? 'Orders are coming soon.' : 'Your spice bag.'} {!review && <span>({count})</span>}</h2>
+        <p>{review ? 'Online ordering is under construction.' : 'Good things are cooking.'}</p>
+      </div>
+      {count > 0 ? <>
+        <div className="cart-items">{products.filter(item => basket[item.id]).map(item => <div className="cart-item" key={item.id}>
+          <div className="cart-item-art" style={{ background: item.background }}><Pouch product={item} small/></div>
+          <div className="cart-item-copy">
+            <h3>{item.name}</h3><span>{item.weight} · {formatPrice(item.price)}</span>
+            <div className="cart-item-controls"><div className="quantity-control">
+              <button aria-label={`Decrease ${item.name} quantity`} onClick={() => quantity(item.id, -1)}><Minus size={14}/></button>
+              <span aria-label={`${item.name} quantity`}>{basket[item.id]}</span>
+              <button aria-label={`Increase ${item.name} quantity`} disabled={basket[item.id] >= 20} onClick={() => quantity(item.id, 1)}><Plus size={14}/></button>
+            </div><button className="icon-button" aria-label={`Remove ${item.name} from bag`} onClick={() => setBasket(current => { const next = { ...current }; delete next[item.id]; return next; })}><Trash2 size={15}/></button></div>
+          </div>
+          <strong>{formatPrice(item.price * basket[item.id])}</strong>
+        </div>)}</div>
+        <div className="cart-summary">
+          <div><span>Subtotal</span><strong>{formatPrice(total)}</strong></div>
+          <p>Prices shown in Nepalese rupees (NPR).</p>
+          {review ? <div className="order-notice"><Clock3 size={22}/><div><strong>This website is under construction.</strong><p>Online orders aren’t available yet. For now, contact us {hasContactNumber ? <>at <a href={`tel:${contactNumberHref}`}>{brand.contactNumber}</a></> : 'using the phone number in the Contact section'}.</p></div></div> : <><p className="order-progress"><Clock3 size={15}/> Online ordering is under construction</p><button className="button button-green full-width" onClick={() => setReview(true)}>Review sample order <ArrowRight size={18}/></button></>}
+          <button className="continue-button" onClick={closeDrawer}>Continue exploring <ArrowRight size={15}/></button>
+          <small className="sample-note">Demo storefront · No payments are collected</small>
+        </div>
+      </> : <div className="empty-state cart-empty"><ShoppingBag size={45} strokeWidth={1}/><h3>A little room for flavour.</h3><p>Your bag is empty. Let’s find something<br/>lovely for your kitchen.</p><a href="#spices" className="button button-green" onClick={closeDrawer}>Explore the spices <ArrowRight size={17}/></a></div>}
+    </Modal>}
 
     {recipe && <Modal title={recipe.title} onClose={closeRecipe} className="recipe-modal"><span className="eyebrow">{recipe.category}</span><span className="recipe-nepali" lang="ne">{recipe.nepali}</span><h2>{recipe.title}</h2><p className="recipe-intro">{recipe.intro}</p><div className="recipe-facts"><span><Clock3 size={17}/>{recipe.time}</span><span><Users size={17}/>{recipe.serves}</span><span><Leaf size={17}/>Vegetarian</span></div><div className="recipe-instructions"><div><h3>What you’ll need</h3><ul>{recipe.ingredients.map(item => <li key={item}>{item}</li>)}</ul></div><div><h3>Let’s get cooking</h3><ol>{recipe.steps.map(step => <li key={step}>{step}</li>)}</ol></div></div><div className="recipe-end" lang="ne">मिठो खानुहोस्। <Heart size={17}/></div></Modal>}
   </>;
